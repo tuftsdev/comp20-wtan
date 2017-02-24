@@ -14,59 +14,58 @@
 <div id="lyrics">Lyrics appear here</div>
 
 <script>
-array=["Starting","You've got me feelin' emotions","Deeper than I've ever dreamed of","You've got me feelin' emotions","Higher than the heavens above","I feel good, I feel nice","I've never felt so satisfied","I'm in love, I'm alive","Intoxicated, flyin' high","Feels like a dream","When you touch me tenderly","I don't know if it's real","But I like the way I feel inside","You've got me feelin' emotions","Deeper than I've ever dreamed of","You've got me feelin' emotions","Higher than the heavens above", "FIN"];
+ly_array=["Starting","You've got me feelin' emotions",
+"Deeper than I've ever dreamed of","You've got me feelin' emotions",
+"Higher than the heavens above","I feel good, I feel nice",
+"I've never felt so satisfied","I'm in love, I'm alive",
+"Intoxicated, flyin' high","Feels like a dream","When you touch me tenderly",
+"I don't know if it's real","But I like the way I feel inside",
+"You've got me feelin' emotions","Deeper than I've ever dreamed of",
+"You've got me feelin' emotions","Higher than the heavens above", "FIN"];
 
-function runlyricstime(){
-	setTimeout(runlyrics,300);
-	setTimeout(runlyricstime,1000);
-}
-
+var stream= document.getElementsByTagName('video')[0];
+stream.addEventListener("timeupdate",runlyrics, false);
+var annotation=document.getElementById('lyrics');
 function runlyrics()
 {
 	if(stream.currentTime<9)
-		document.getElementById('lyrics').textContent=array[0];
+		annotation.textContent=ly_array[0];
 	else if(stream.currentTime>=9 && stream.currentTime<13)
-		document.getElementById('lyrics').textContent=array[1];
+		annotation.textContent=ly_array[1];
 	else if(stream.currentTime>=13 && stream.currentTime<17)
-		document.getElementById('lyrics').textContent=array[2];
+		annotation.textContent=ly_array[2];
 	else if(stream.currentTime>=17 && stream.currentTime<21)
-		document.getElementById('lyrics').textContent=array[3];
+		annotation.textContent=ly_array[3];
 	else if(stream.currentTime>=21 && stream.currentTime<25)
-		document.getElementById('lyrics').textContent=array[4];
+		annotation.textContent=ly_array[4];
 	else if(stream.currentTime>=25 && stream.currentTime<30)
-		document.getElementById('lyrics').textContent=array[5];
+		annotation.textContent=ly_array[5];
 	else if(stream.currentTime>=30 && stream.currentTime<33)
-		document.getElementById('lyrics').textContent=array[6];
+		annotation.textContent=ly_array[6];
 	else if(stream.currentTime>=33 && stream.currentTime<37)
-		document.getElementById('lyrics').textContent=array[7];
+		annotation.textContent=ly_array[7];
 	else if(stream.currentTime>=37 && stream.currentTime<44)
-		document.getElementById('lyrics').textContent=array[8];
+		annotation.textContent=ly_array[8];
 	else if(stream.currentTime>=44 && stream.currentTime<48)
-		document.getElementById('lyrics').textContent=array[9];	
-	else if(stream.currentTime>=48 && stream.currentTime<52)
-		document.getElementById('lyrics').textContent=array[10];	
-	else if(stream.currentTime>=52 && stream.currentTime<55)
-		document.getElementById('lyrics').textContent=array[11];
-	else if(stream.currentTime>=55 && stream.currentTime<59)
-		document.getElementById('lyrics').textContent=array[12];	
-	else if(stream.currentTime>=59 && stream.currentTime<63)
-		document.getElementById('lyrics').textContent=array[13];	
+		annotation.textContent=ly_array[9];	
+	else if(stream.currentTime>=48 && stream.currentTime<51)
+		annotation.textContent=ly_array[10];	
+	else if(stream.currentTime>=51 && stream.currentTime<54)
+		annotation.textContent=ly_array[11];
+	else if(stream.currentTime>=54 && stream.currentTime<58)
+		annotation.textContent=ly_array[12];	
+	else if(stream.currentTime>=58 && stream.currentTime<63)
+		annotation.textContent=ly_array[13];	
 	else if(stream.currentTime>=63 && stream.currentTime<67)
-		document.getElementById('lyrics').textContent=array[14];	
+		annotation.textContent=ly_array[14];	
 	else if(stream.currentTime>=67 && stream.currentTime<71)
-		document.getElementById('lyrics').textContent=array[15];	
+		annotation.textContent=ly_array[15];	
 	else if(stream.currentTime>=71 && stream.currentTime<75)
-		document.getElementById('lyrics').textContent=array[16];	
+		annotation.textContent=ly_array[16];	
 	else
-		document.getElementById('lyrics').textContent=array[17];
+		annotation.textContent=ly_array[17];
 }
 
-var stream= document.getElementsByTagName('video')[0];
-stream.addEventListener("playing",runlyricstime, false);
-stream.addEventListener("seeked",runlyricstime, false);
-
-
-	//Complete this section and create a CSS file named style.css
 </script>
 </body>
 </html>	
