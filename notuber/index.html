@@ -8,21 +8,40 @@ function getLocation(){
 	var apiSearch = new XMLHttpRequest();
 	apiSearch.open("POST", "https://defense-in-derpth.herokuapp.com/submit",true);
 	apiSearch.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	if (navigator.geolocation){
+	selfgeolocation(apiSearch);
+	apiSearch.onreadystatechange=function(){
+		if(apiSearch.readyState==4){
+			coordlist=JSON.parse(apiSearch.responseText);
+			console.log(apiSearch.responseText);
+			console.log(coordlist);
+			var markerList={};
+			if ('vehicles' in coordlist){
+				console.log('yay');
+				for(i=0;i<coordlist["vehicles"].length;i++){
+				}
+			}
+		}
+	}
+
+}
+
+function selfgeolocation(apiSearch){
+		if (navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
 			lat = position.coords.latitude;
 			lng = position.coords.longitude;
 			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
-				zoom: 15,
+				zoom: 17,
 				center: me,
 				mapTypeID: google.maps.MapTypeId.ROADMAP
-			}
-			var map= new google.maps.Map(document.getElementById("map_canvas"), specs)
+			};
+			var map= new google.maps.Map(document.getElementById("map_canvas"), specs);
 			var marker = new google.maps.Marker({position:me,
-				title:"me"})
-			//stickmannews.weebly.com
+				title:"me",
+				/*icon:"stick-man-297255_640.png"*/})
+			//https://pixabay.com/en/stick-man-walking-hiking-sign-297255/
 			marker.setMap(map);
 		});
 	}
@@ -31,7 +50,6 @@ function getLocation(){
 	}
 	
 }
-//Getting location
 
 
 </script>
