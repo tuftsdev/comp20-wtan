@@ -16,13 +16,13 @@ function getLocation(){
 			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
-				zoom: 17,
+				zoom: 10,
 				center: me,
 				mapTypeID: google.maps.MapTypeId.ROADMAP
 			};
 			var mappy= new google.maps.Map(document.getElementById("map_canvas"), specs);
 			var marker = new google.maps.Marker({position:me,
-				title:"me", map:mappy
+				title:"me", map:mappy, icon:"oie_transparent.png"
 				/*icon:"stick-man-297255_640.png"*/})
 			apiSearch.onreadystatechange=function(){
 				if(apiSearch.readyState==4){
@@ -36,7 +36,7 @@ function getLocation(){
 							var positioni=new google.maps.LatLng(coordlist['vehicles'][i].lat,coordlist['vehicles'][i].lng);
 							bounds.extend(positioni);
 							markerList[i]=new google.maps.Marker({position:positioni,
-							title:coordlist['vehicles'][i].username, map:mappy});					
+							title:coordlist['vehicles'][i].username, map:mappy, icon: 'black_car.png'});					
 						}
 					}
 				}
