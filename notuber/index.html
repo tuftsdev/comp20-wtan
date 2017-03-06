@@ -1,7 +1,7 @@
 <head>
 <meta charset="utf-8">
 <link href="notuber.css" rel="stylesheet">
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyD8Qzk7JOJCbvQZolgTXmisRjjMZ_cqIsk"></script>
+<script src="https://maps.google.com/maps/api/js?libraries=geometry&key=AIzaSyD8Qzk7JOJCbvQZolgTXmisRjjMZ_cqIsk"></script>
 <!-- Write Javascript in Html file, key: key=AIzaSyD8Qzk7JOJCbvQZolgTXmisRjjMZ_cqIsk-->
 <script type="text/javascript">
 function getLocation(){
@@ -16,27 +16,69 @@ function getLocation(){
 			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
-				zoom: 10,
+				zoom: 13,
 				center: me,
 				mapTypeID: google.maps.MapTypeId.ROADMAP
 			};
 			var mappy= new google.maps.Map(document.getElementById("map_canvas"), specs);
-			var marker = new google.maps.Marker({position:me,
-				title:"me", map:mappy, icon:"oie_transparent.png"
+			var infome=new google.maps.InfoWindow({content: '6NVPzKEi'});
+			var marker = new google.maps.Marker({
+				position: me,
+				title: "6NVPzKEi",
+				map:mappy,
+				icon:"oie_transparent.png",
+				infowindow: infome,
 				/*icon:"stick-man-297255_640.png"*/})
+			infome.open(mappy,marker);
+			google.maps.event.addListener(marker, 'click', function(){
+				this.infowindow.open(mappy, this);
+			});
 			apiSearch.onreadystatechange=function(){
 				if(apiSearch.readyState==4){
 					coordlist=JSON.parse(apiSearch.responseText);
 					console.log(apiSearch.responseText);
 					console.log(coordlist);
 					var markerList=[];
+					var infoList=[];
 					if ('vehicles' in coordlist){
-						console.log('yay');
+						//console.log('yay');
 						for(i=0;i<coordlist["vehicles"].length;i++){
 							var positioni=new google.maps.LatLng(coordlist['vehicles'][i].lat,coordlist['vehicles'][i].lng);
 							bounds.extend(positioni);
-							markerList[i]=new google.maps.Marker({position:positioni,
-							title:coordlist['vehicles'][i].username, map:mappy, icon: 'black_car.png'});					
+							information='<h1> ' +coordlist['vehicles'][i].username+'</h1>' +
+							'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, positioni)/1609.34+' miles'+'</p>';
+							infoList[i]=new google.maps.InfoWindow({content: information});
+							markerList[i]=new google.maps.Marker({
+								position: positioni,
+								title: coordlist['vehicles'][i].username,
+								map: mappy, 
+								icon: 'black_car.png',
+								infowindow: infoList[i]
+							});
+
+							google.maps.event.addListener(markerList[i], 'click', function(){
+									this.infowindow.open(mappy, this);
+							});				
+						}
+					}
+					if ('passengers' in coordlist){
+						for(i=0;i<coordlist["vehicles"].length;i++){
+							var positioni=new google.maps.LatLng(coordlist['vehicles'][i].lat,coordlist['vehicles'][i].lng);
+							bounds.extend(positioni);
+							information='<h1> ' +coordlist['vehicles'][i].username+'</h1>' +
+							'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, positioni)/1609.34+' miles'+'</p>';
+							infoList[i]=new google.maps.InfoWindow({content: information});
+							markerList[i]=new google.maps.Marker({
+								position: positioni,
+								title: coordlist['vehicles'][i].username,
+								map: mappy, 
+								icon: "oie_transparent.png",
+								infowindow: infoList[i]
+							});
+
+							google.maps.event.addListener(markerList[i], 'click', function(){
+									this.infowindow.open(mappy, this);
+							});
 						}
 					}
 				}
@@ -50,11 +92,6 @@ function getLocation(){
 	
 
 }
-
-function selfgeolocation(apiSearch){
-	
-}
-
 
 </script>
 </head>
