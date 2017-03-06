@@ -1,12 +1,18 @@
-Below are Implementation Requirements:
+Done by Winston Tan, wtan02
+On 5th March 2017.
 
-Source of Image file for passenger:www.drawastickman.com
+Parts of the assignment that have been correctly implemented:
+navigation.geolocation was used properly. A custom icon was used for 
+my position along with my username. Vehicles are marked with the black
+car provided on the website. Information windows are also correctly 
+implemented on the map. Distance is done in miles along with their usernames.
+Minor styling has been done. Files are in the locations they should be in.
+XMLHttpRequest was used succesfully to post to the API as requested.
 
-You must use at least one (1) CSS file. You can name the file whatever you want.
-\
-You must use the JavaScript navigator.geolocation object to retrieve your geolocation information (latitude and longitude).
+Source of Image file used for passenger:www.drawastickman.com
 
-You must use the JavaScript XMLHttpRequest object to make requests (i.e., send your information) and manage the response data.
-After retrieving your location using the navigator.geolocation JavaScript object, you must display your location on the map with unique marker (i.e., using an image of your choice) with an info window showing your username.
+I have received help from the TA Michael for some issues regarind infoWindows.
 
-You must display locations of all passengers OR vehicles on the map, depending on who you are. If you are marked as a driver / vehicle, display location of all passengers. If you are a passenger, display location of all vehicles. All vehicles on the map shall use this icon: The Black Car(alt-text). You can use any picture as marker icon for a passenger; all passenger markers shall use the same picture as marker icon on map. Clicking on a vehicle or passenger marker will display vehicle or passenger username and mile(s) away from you in an info window.
+An approximate of 10-12 hours was spent on this assignment 
+(mainly going in circles and meeting bugs).
+
