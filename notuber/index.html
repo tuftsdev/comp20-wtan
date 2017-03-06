@@ -16,12 +16,12 @@ function getLocation(){
 			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
-				zoom: 13,
+				zoom: 17,
 				center: me,
 				mapTypeID: google.maps.MapTypeId.ROADMAP
 			};
 			var mappy= new google.maps.Map(document.getElementById("map_canvas"), specs);
-			var infome=new google.maps.InfoWindow({content: '6NVPzKEi'});
+			var infome=new google.maps.InfoWindow({content: '<h1>6NVPzKEi</h1>'});
 			var marker = new google.maps.Marker({
 				position: me,
 				title: "6NVPzKEi",
@@ -36,8 +36,8 @@ function getLocation(){
 			apiSearch.onreadystatechange=function(){
 				if(apiSearch.readyState==4){
 					coordlist=JSON.parse(apiSearch.responseText);
-					console.log(apiSearch.responseText);
-					console.log(coordlist);
+					//console.log(apiSearch.responseText);
+					//console.log(coordlist);
 					var markerList=[];
 					var infoList=[];
 					if ('vehicles' in coordlist){
@@ -96,5 +96,6 @@ function getLocation(){
 </script>
 </head>
 <body onload="getLocation()">
+<h1 id='title'> Notuber! </h1>
 <div id="map_canvas"></div>
 </body>
