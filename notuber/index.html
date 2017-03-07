@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <link href="notuber.css" rel="stylesheet">
@@ -6,6 +8,7 @@
 <script type="text/javascript">
 function getLocation(){
 	var apiSearch = new XMLHttpRequest();
+	var infome=new google.maps.InfoWindow();
 	apiSearch.open("POST", "https://defense-in-derpth.herokuapp.com/submit",true);
 	apiSearch.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	if (navigator.geolocation){
@@ -21,7 +24,6 @@ function getLocation(){
 				mapTypeID: google.maps.MapTypeId.ROADMAP
 			};
 			var mappy= new google.maps.Map(document.getElementById("map_canvas"), specs);
-			var infome=new google.maps.InfoWindow({content: '<h1>6NVPzKEi</h1>'});
 			var marker = new google.maps.Marker({
 				position: me,
 				title: "6NVPzKEi",
@@ -29,8 +31,10 @@ function getLocation(){
 				icon:"oie_transparent.png",
 				infowindow: infome,
 				/*icon:"stick-man-297255_640.png"*/})
+			infome.setContent('<h1>6NVPzKEi</h1>');
 			infome.open(mappy,marker);
 			google.maps.event.addListener(marker, 'click', function(){
+				this.infowindow.setContent('<h1>6NVPzKEi</h1>');
 				this.infowindow.open(mappy, this);
 			});
 			apiSearch.onreadystatechange=function(){
@@ -55,27 +59,25 @@ function getLocation(){
 								icon: 'black_car.png',
 								infowindow: infoList[i]
 							});
-
 							google.maps.event.addListener(markerList[i], 'click', function(){
 									this.infowindow.open(mappy, this);
 							});				
 						}
 					}
 					if ('passengers' in coordlist){
-						for(i=0;i<coordlist["vehicles"].length;i++){
-							var positioni=new google.maps.LatLng(coordlist['vehicles'][i].lat,coordlist['vehicles'][i].lng);
+						for(i=0;i<coordlist["passengers"].length;i++){
+							var positioni=new google.maps.LatLng(coordlist['passengers'][i].lat,coordlist['passengers'][i].lng);
 							bounds.extend(positioni);
-							information='<h1> ' +coordlist['vehicles'][i].username+'</h1>' +
+							information='<h1> ' +coordlist['passengers'][i].username+'</h1>' +
 							'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, positioni)/1609.34+' miles'+'</p>';
 							infoList[i]=new google.maps.InfoWindow({content: information});
 							markerList[i]=new google.maps.Marker({
 								position: positioni,
-								title: coordlist['vehicles'][i].username,
+								title: coordlist['passengers'][i].username,
 								map: mappy, 
 								icon: "oie_transparent.png",
 								infowindow: infoList[i]
 							});
-
 							google.maps.event.addListener(markerList[i], 'click', function(){
 									this.infowindow.open(mappy, this);
 							});
@@ -83,16 +85,13 @@ function getLocation(){
 					}
 				}
 			}
-			//https://pixabay.com/en/stick-man-walking-hiking-sign-297255/
 		});
 	}
 	else{
 		console.log('geolocation not supported');
 	}
 	
-
 }
-
 </script>
 </head>
 <body onload="getLocation()">
