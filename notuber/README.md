@@ -3,14 +3,17 @@ On 5th March 2017.
 
 Parts of the assignment that have been correctly implemented:
 navigation.geolocation was used properly. A custom icon was used for 
-my position along with my username. Vehicles are marked with the black
-car provided on the website. Information windows are also correctly 
-implemented on the map. Distance is done in miles along with their usernames.
+my position along with my username, and another was used for the passengers.
+Vehicles are marked with the black car provided on the website. Information windows are also 
+correctly implemented on the map with one global information window implemented.
+Distance is done in miles along with their usernames.
 Minor styling has been done. Files are in the locations they should be in.
 XMLHttpRequest was used succesfully to post to the API as requested.
 
 Source of Image file used for me: http://www.drawastickman.com (for my own marker)
 Source of Image file used for the generic passenger: http://www.clker.com/clipart-stick-man-7.html
+Source of Image file for vehicle: https://tuftsdev.github.io/WebProgramming/assignments/a2.html
+Image editor used: http://www.online-image-editor.com/
 
 I have received help from the TA Michael for some issues regarind infoWindows.
 
