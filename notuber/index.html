@@ -15,7 +15,6 @@ function getLocation(){
 		navigator.geolocation.getCurrentPosition(function(position){
 			lat = position.coords.latitude;
 			lng = position.coords.longitude;
-			var bounds = new google.maps.LatLngBounds();
 			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
@@ -43,23 +42,21 @@ function getLocation(){
 					//console.log(apiSearch.responseText);
 					//console.log(coordlist);
 					var markerList=[];
-					var infoList=[];
 					if ('vehicles' in coordlist){
 						//console.log('yay');
 						for(i=0;i<coordlist["vehicles"].length;i++){
 							var positioni=new google.maps.LatLng(coordlist['vehicles'][i].lat,coordlist['vehicles'][i].lng);
-							bounds.extend(positioni);
-							information='<h1> ' +coordlist['vehicles'][i].username+'</h1>' +
-							'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, positioni)/1609.34+' miles'+'</p>';
-							infoList[i]=new google.maps.InfoWindow({content: information});
 							markerList[i]=new google.maps.Marker({
 								position: positioni,
 								title: coordlist['vehicles'][i].username,
 								map: mappy, 
 								icon: 'black_car.png',
-								infowindow: infoList[i]
+								infowindow: infome
 							});
 							google.maps.event.addListener(markerList[i], 'click', function(){
+									information='<h1> ' +this.title+'</h1>' +
+									'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34+' miles'+'</p>';
+									this.infowindow.setContent(information);
 									this.infowindow.open(mappy, this);
 							});				
 						}
@@ -67,18 +64,17 @@ function getLocation(){
 					if ('passengers' in coordlist){
 						for(i=0;i<coordlist["passengers"].length;i++){
 							var positioni=new google.maps.LatLng(coordlist['passengers'][i].lat,coordlist['passengers'][i].lng);
-							bounds.extend(positioni);
-							information='<h1> ' +coordlist['passengers'][i].username+'</h1>' +
-							'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, positioni)/1609.34+' miles'+'</p>';
-							infoList[i]=new google.maps.InfoWindow({content: information});
 							markerList[i]=new google.maps.Marker({
 								position: positioni,
 								title: coordlist['passengers'][i].username,
 								map: mappy, 
-								icon: "oie_transparent.png",
-								infowindow: infoList[i]
+								icon: "oie_transparent2.png",
+								infowindow: infome,
 							});
 							google.maps.event.addListener(markerList[i], 'click', function(){
+									information='<h1> ' +this.title+'</h1>' +
+									'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34+' miles'+'</p>';
+									this.infowindow.setContent(information);
 									this.infowindow.open(mappy, this);
 							});
 						}
