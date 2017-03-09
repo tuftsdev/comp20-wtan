@@ -55,7 +55,7 @@ function getLocation(){
 							});
 							google.maps.event.addListener(markerList[i], 'click', function(){
 									information='<h1> ' +this.title+'</h1>' +
-									'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34+' miles'+'</p>';
+									'<p> Distance: '+ (google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34).toFixed(5)+' miles'+'</p>';
 									this.infowindow.setContent(information);
 									this.infowindow.open(mappy, this);
 							});				
@@ -73,7 +73,7 @@ function getLocation(){
 							});
 							google.maps.event.addListener(markerList[i], 'click', function(){
 									information='<h1> ' +this.title+'</h1>' +
-									'<p> Distance: '+ google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34+' miles'+'</p>';
+									'<p> Distance: '+ (google.maps.geometry.spherical.computeDistanceBetween(me, this.position)/1609.34).toFixed(5)+' miles'+'</p>';
 									this.infowindow.setContent(information);
 									this.infowindow.open(mappy, this);
 							});
