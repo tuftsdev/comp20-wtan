@@ -9,7 +9,7 @@
 function getLocation(){
 	var apiSearch = new XMLHttpRequest();
 	var infome=new google.maps.InfoWindow();
-	apiSearch.open("POST", "https://defense-in-derpth.herokuapp.com/submit",true);
+	apiSearch.open("POST", "https://polar-oasis-78824.herokuapp.com/submit",true);
 	apiSearch.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	if (navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
