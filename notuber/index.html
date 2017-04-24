@@ -9,13 +9,13 @@
 function getLocation(){
 	var apiSearch = new XMLHttpRequest();
 	var infome=new google.maps.InfoWindow();
-	apiSearch.open("POST", "https://polar-oasis-78824.herokuapp.com/submit",true);
+	apiSearch.open("POST", "https://limitless-springs-63304.herokuapp.com/submit",true);
 	apiSearch.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	if (navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
 			lat = position.coords.latitude;
 			lng = position.coords.longitude;
-			apiSearch.send("username=6NVPzKEi&lat="+lat+"&lng="+lng);
+			apiSearch.send("username=JANET&lat="+lat+"&lng="+lng);
 			var me = new google.maps.LatLng(lat, lng);
 			var specs = {
 				zoom: 17,

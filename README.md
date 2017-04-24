@@ -1,0 +1,1 @@
+1. The purpose of this repository is to track the learning that we have accomplised through the semester as well as a method to share what we have done.

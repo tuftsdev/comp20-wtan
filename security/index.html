@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Security report on limitless-springs-63304.herokuapp.com</title>
+</head>
+
+<body>
+<h1>
+	Introduction
+</h1>
+<p>
+	The product was intended to simulate the tracking of passengers and vehicles around the world interacting with a software.<br>
+	I was hired to test the product for security vulnerabilities and bad programming practiced<br>
+</p>
+<h1>
+	Methodology
+</h1>
+<p>
+	First, I tested the site for XSS vulnerabilities. On posting to &sol;submit using CURL, I swapped the usernames from a valid<br>
+	one to a script tag a: for example &lt;script&gt; alert("hi") &lt;&sol;script&gt;. This test was also done for the fields lat<br>
+	and lng. After this initial test, I then went through the source code to trace the path where input data takes to locate<br>
+	more security vulnerabilities. 
+</p>
+<h1>
+	Abstract of Findings
+</h1>
+<p>
+	Security issues found include that while data is validated to prevent hostile scripts, data entry is not and the validation of<br>
+	the fields are lax apart from script checking. There also exist fundamental privacy issues with the functionality of the application<br>
+	including the ability to track where the app is sending data to and from there finding out passengers and even vehicle listing.<br>
+</p>
+
+<h1>
+	Issues Found
+</h1>
+
+<h2>Issue: Unlimited field entries</h2>
+<p>
+	Page found: limitless-springs-63304.herokuapp.com<br><br>
+
+	Description of issue: The field for username has no form of checking if the request is made from a valid site, allowing for <br>
+	constant posting which makes it hard for users of the site to figure out passenger traffic.<br><br>
+
+	Severity of issue: Medium as it does not compromise the actual usage of the application until the database has been overloaded<br>
+	which would then render it unable to serve its purpose from the passenger database. Empty strings are allowed as well<br><br>
+
+	Proof of vulnerability:<br>
+	<img src="security_1.png" alt="security vulnerability"><br>
+
+	Resolution: Use local storage/cookies and return functions to track if the same platform is being used to send data repeatedly<br>
+	Limit username length by the following code: if (username.length > 8) response.send(403)<br>
+</p>
+
+<h2>Issue: Invalid variables allowed</h2>
+<p>
+	Page found: limitless-springs-63304.herokuapp.com/submit<br><br>
+
+	Description of issue: The field for lat and lng only check for numerical data and do not send feedback for faulty submissions<br><br>
+
+	Severity of issue: Low as it does not compromise the actual usage of the application. Google Maps renders NaN at 0.<br>
+	However, if any code was to rely on proper latitudes and longitudes, they would not work in the future<br>
+	This would also help to check for faulty script on the client side when they do not send valid latitude and longitudes<br>
+	This is especially the case if the way the distance is calculated is not from the Google Maps API as it could easily lead to console errors<br><br>
+
+	Proof of vulnerability:<br>
+	<img src="security_2.png" alt="security vulnerability 2"><br>
+
+	Resolution: Check if input lat falls between -90 and 90 while longitude falls between -180 to 180 and respond with an error<br>
+</p>
+
+<h2> Issue: Missing function level access control</h2>
+<p>
+	Page found: limitless-springs-63304.herokuapp.com/vehicles.json<br><br>
+
+	Description of issue: The field for username has no form of checking if the request is made from a valid site, allowing for <br>
+	constant probing of the website for vehicles. When done along with assignment 2, list of vehicles can easily be tallied<br><br>
+
+	Severity of issue: Medium as privacy may be compromised from the users to the vehicles travelling and their last known location<br>
+	That being the case, every user would thus be able to keep track of all of the vehicles and the people driving them.(once known)<br>
+	It is also possible to brute force the username through schrips should the usernames be insufficiently long enough, which<br>
+	one can determine simply through the client-side interface<br><br>
+
+	Proof of vulnerability:<br>
+	<img src="security_3.png" alt="security vulnerability 3"><br>
+
+	Resolution: Assign passwords and require form of authentication when accessing vehicles.json<br>
+</p>
+
+<h1>
+	Conclusion
+</h1>
+<p>
+	For a Uber-like service to be done, the usernames of the cars should not be transmitted to the client for privacy purposes<br>
+	Other requirements include authentication which preferably should be attached to a hash reliant on time to prevent interception<br>
+	by proxies and easy decryption. Although inputs were checked, the source of the input should be checked to prevent too much <br>
+	information from the same source, and the all fields should be checked if valid, preferably through signups, thus cataloguing<br>
+	passengers in an array. To this end, the base website should also be encrypted and require authentication to prevent stalking <br>
+	of passengersas a privacy measure<br>
+</p>
+<h1>Resources</h1>
+<p>Website referenced: https://www.toptal.com/security/10-most-common-web-security-vulnerabilities</p>
+</body>
+</html>
